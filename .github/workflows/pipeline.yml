@@ -1,0 +1,47 @@
+name: Deploying Pipeline
+
+on:
+  push
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+
+jobs:
+
+  avoid_previous_builds:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: cancel previous builds
+        uses: styfle/cancel-workflow-action@0.9.1
+        with: ${{ github.token  }}
+
+  install:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with: 
+          cache: 'npm'
+          node-version: 18.7.0
+      - name: Intalling dependencies
+        run: npm install --no-audit --no-fund --no-optional
+  lint:
+    needs: [install]
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Lint
+        run: npm run lint
+  build:
+    needs: [install]
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Build
+        run : npm run tsc
+  deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Deploy heroku
+        run : 'echo \"Desployed\"'
