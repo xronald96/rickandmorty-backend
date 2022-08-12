@@ -10,7 +10,7 @@ on:
 jobs:
 
   avoid_previous_builds:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - name: cancel previous builds
         uses: styfle/cancel-workflow-action@0.9.1
@@ -18,7 +18,7 @@ jobs:
           access_token: ${{ github.token  }}
 
   install:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
         with:
@@ -31,7 +31,7 @@ jobs:
         run: npm ci
   lint:
     needs: [install]
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
         with:
@@ -46,7 +46,7 @@ jobs:
         run: npm run lint
   build:
     needs: [install]
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
         with:
@@ -61,7 +61,7 @@ jobs:
         run : npm run tsc
   deploy:
     needs: ['lint', 'build']
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - name: Deploy heroku
         run : 'echo \"Desployed\"'
