@@ -1,7 +1,7 @@
 name: Deploying Pipeline
 
 on:
-  push
+  push:
     branches: ['main']
   pull_request:
     branches: ['main']
@@ -14,7 +14,8 @@ jobs:
     steps:
       - name: cancel previous builds
         uses: styfle/cancel-workflow-action@0.9.1
-        with: ${{ github.token  }}
+        with: 
+          access_token: ${{ github.token  }}
 
   install:
     runs-on: ubuntu-18.04
