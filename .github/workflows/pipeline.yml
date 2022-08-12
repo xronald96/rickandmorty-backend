@@ -42,6 +42,7 @@ jobs:
       - name: Build
         run : npm run tsc
   deploy:
+    needs: ['lint', 'build']
     runs-on: ubuntu-18.04
     steps:
       - name: Deploy heroku
