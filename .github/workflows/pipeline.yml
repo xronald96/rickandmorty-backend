@@ -57,7 +57,7 @@ jobs:
           cache: 'npm'
       - name: Intalling dependencies
         run: npm ci
-      - name: Lint
+      - name: Running test
         run: npm run test
   build:
     needs: [install]
