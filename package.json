@@ -6,8 +6,8 @@
   "scripts": {
     "start": "ts-node-dev src/index.ts",
     "build": "tsc",
-    "test": "jest",
-    "test:dev": "jest --watch",
+    "test": "NODE_ENV=dev jest",
+    "test:dev": "NODE_ENV=dev jest --watch",
     "lint": "eslint src/**/*.ts",
     "format": "eslint src/**/*.ts --fix"
   },

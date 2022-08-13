@@ -1,5 +1,5 @@
 import { connect } from 'mongoose';
-import { LOCAL_URI_DB } from '../utils/constsnts';
+import { LOCAL_URI_DB } from '../utils/constants';
 
 export const initDb = async () => {
 	try {
