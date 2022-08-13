@@ -4,6 +4,9 @@ import { disconnect } from 'mongoose';
 import { newUser } from '../mocks/userMocks';
 import User from '../../schemas/User';
 describe('User rout', () => {
+    beforeEach(()=>{
+        jest.setTimeout(100000)
+    })
 	beforeAll(async () => {
 		await User.deleteMany();
 	});
