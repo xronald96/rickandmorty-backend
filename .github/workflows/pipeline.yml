@@ -44,6 +44,21 @@ jobs:
         run: npm ci
       - name: Lint
         run: npm run lint
+  tests:
+    needs: [install]
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - name: Intalling dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run test
   build:
     needs: [install]
     runs-on: ubuntu-20.04
@@ -58,7 +73,7 @@ jobs:
       - name: Intalling dependencies
         run: npm ci
       - name: Build
-        run : npm run tsc
+        run : npm run build
   deploy:
     needs: ['lint', 'build']
     runs-on: ubuntu-20.04
