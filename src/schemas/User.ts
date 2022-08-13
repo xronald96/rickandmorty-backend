@@ -1,16 +1,8 @@
 import { Schema, model } from 'mongoose';
-interface IUser {
-	_id: string,
-	name: string;
-	surname: string;
-	email: string;
-	birthday: string;
-	password: string;
-	token: string;
-	phone: string;
-}
+import { UserEntity } from '../types/UserEntity';
 
-const userSchema = new Schema<IUser>({
+
+const userSchema = new Schema<UserEntity>({
 	_id: { type: String, required: false },
 	name: { type: String, required: true },
 	surname: { type: String, required: true },
@@ -21,4 +13,4 @@ const userSchema = new Schema<IUser>({
 	token: { type: String, required: false },
 });
 
-export default model<IUser>('User', userSchema);
+export default model<UserEntity>('User', userSchema);
