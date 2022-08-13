@@ -6,13 +6,17 @@ import { initDb } from './database/database';
 dotenv.config();
 initDb();
 const app = express();
-const PORT = 8080;
+const PORT = 8000;
 app.use(express.json());
 
 app.all('/*', headers);
 
 app.use(routes);
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
 	// eslint-disable-next-line no-console
 	console.log('Running on port: ', PORT);
 });
+
+export {
+	app, server
+}

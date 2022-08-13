@@ -25,8 +25,6 @@ export const login = async ({
 			return CreateSuccessResponse(200, user[0]);
 		} else return CreateErrorResponse(400, 'Invalid Credentials');
 	} catch (err) {
-		// eslint-disable-next-line no-console
-		console.log(err);
-		return CreateErrorResponse(500, 'Internal error');
+		return CreateErrorResponse(500, 'Internal error', err);
 	}
 };

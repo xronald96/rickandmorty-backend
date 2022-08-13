@@ -4,7 +4,7 @@ const loginRouter = Router();
 
 loginRouter.post('', async (req, res) => {
 	const response = await login(req.body);
-	res.status(response.status).send(response)
+	res.status(response.status).json(response)
 });
 
 export default loginRouter;
