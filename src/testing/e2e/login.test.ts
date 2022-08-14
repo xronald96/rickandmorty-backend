@@ -11,8 +11,8 @@ describe('Login route', () => {
 		await User.deleteMany();
 	});
 	afterAll(async () => {
-		User.deleteMany();
-		disconnect();
+		await User.deleteMany();
+		await disconnect();
 	});
 	it.only('login new user', async () => {
 		const newUserTmp = await new User({ ...newUser, password: await encrypPassword(newUser.password) });

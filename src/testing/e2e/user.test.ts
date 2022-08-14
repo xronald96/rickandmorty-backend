@@ -9,10 +9,12 @@ describe('User route', () => {
 		jest.setTimeout(10000);
 		await User.deleteMany();
 	});
+
 	afterAll(async () => {
-		User.deleteMany();
-		disconnect();
+		await User.deleteMany();
+		await disconnect();
 	});
+
 	it('create new user', async () => {
 		await request(app)
 			.post('/user')
