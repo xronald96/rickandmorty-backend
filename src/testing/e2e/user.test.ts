@@ -6,11 +6,12 @@ import User from '../../schemas/User';
 //Lo que falla en github en la conexion base de datos
 describe('User route', () => {
 	beforeAll(async () => {
+		jest.setTimeout(10000);
 		await User.deleteMany();
 	});
 	afterAll(async () => {
-        await User.deleteMany();
-		await disconnect();
+		User.deleteMany();
+		disconnect();
 	});
 	it('create new user', async () => {
 		await request(app)
@@ -18,6 +19,6 @@ describe('User route', () => {
 			.send(newUser)
 			.expect(201)
 			.expect('Content-Type', /application\/json/);
-        expect(await User.findOne({email: newUser.email})).toBeDefined()
+		expect(await User.findOne({ email: newUser.email })).toBeDefined();
 	});
 });

@@ -7,16 +7,17 @@ import { encrypPassword } from '../../utils/password';
 
 describe('Login route', () => {
 	beforeAll(async () => {
+		jest.setTimeout(10000);
 		await User.deleteMany();
-		const newUserTmp = await new User({...newUser , password: await encrypPassword(newUser.password)});
-		await newUserTmp.save();
 	});
 	afterAll(async () => {
-		await User.deleteMany();
-		await disconnect();
+		User.deleteMany();
+		disconnect();
 	});
 	it.only('login new user', async () => {
-       await request(app)
+		const newUserTmp = await new User({ ...newUser, password: await encrypPassword(newUser.password) });
+		await newUserTmp.save();
+		await request(app)
 			.post('/login')
 			.send({ email: newUser.email, password: newUser.password })
 			.expect(200)
