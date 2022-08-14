@@ -2,7 +2,7 @@ import { UserEntity } from "./UserEntity";
 
 export interface SuccessResponse {
     status: number,
-    response: UserEntity
+    response: UserEntity | null
 }
 
 export interface ErrorResponse {
