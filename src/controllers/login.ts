@@ -2,7 +2,6 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../schemas/User';
 import { ErrorResponse, SuccessResponse } from '../types/Responses';
-import { LOCAL_URI_DB } from '../utils/constants';
 import { CreateErrorResponse, CreateSuccessResponse } from '../utils/responses';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -18,7 +17,8 @@ export const login = async ({
 
 		const user = await User.findOne({ email }).exec();
 		if (user && (await bcrypt.compare(password, user.password))) {
-			const token = jwt.sign({ user_id: user._id, email }, process.env.JWT_TOKEN || LOCAL_URI_DB, {
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			const token = jwt.sign({ user_id: user._id, email }, process.env.JWT_TOKEN!, {
 				expiresIn: '2h',
 			});
 			user.token = token;
