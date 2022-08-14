@@ -10,6 +10,6 @@ export const initDb = async () => {
 		console.log('Database connected');
 	} catch (error) {
 		// eslint-disable-next-line no-console
-		console.log('Database connetion error: ', error);
+		console.error('Database connetion error: ', error);
 	}
 };
