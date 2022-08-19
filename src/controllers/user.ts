@@ -3,6 +3,7 @@ import { CreateErrorResponse, CreateSuccessResponse } from '../utils/responses';
 import bcrypt from 'bcryptjs';
 import { ErrorResponse, SuccessResponse } from '../types/Responses';
 import { UserEntity } from '../types/UserEntity';
+import { HTTP_STATUS, RESPONSE_ERROR_MESSAGE } from '../utils/constants';
 
 const createUser = async ({
 	name,
@@ -14,18 +15,18 @@ const createUser = async ({
 }: UserEntity): Promise<SuccessResponse | ErrorResponse> => {
 	try {
 		if (!(email && password && name && surname && phone && birthday))
-			return CreateErrorResponse(400, 'All input is required');
+			return CreateErrorResponse(HTTP_STATUS.BAD_REQUEST, RESPONSE_ERROR_MESSAGE.INPUTS_REQUIRED);
 
 		const user = await User.findOne({ email }).exec();
 
-		if (user) return CreateErrorResponse(409, 'User Already Exist. Please Login');
+		if (user) return CreateErrorResponse(HTTP_STATUS.BAD_REQUEST, RESPONSE_ERROR_MESSAGE.USER_ALREADY_EXIST);
 
 		const encryptedPassword = await bcrypt.hash(password, 10);
 		const newUser = await new User({ name, surname, email, password: encryptedPassword, phone, birthday });
 		newUser.save();
-		return CreateSuccessResponse(201, newUser);
+		return CreateSuccessResponse(HTTP_STATUS.CREATED, newUser);
 	} catch (err) {
-		return CreateErrorResponse(500, 'Internal Error', err);
+		return CreateErrorResponse(HTTP_STATUS.INTERNAL_ERROR, RESPONSE_ERROR_MESSAGE.INTERNAL_ERROR, err);
 	}
 };
 

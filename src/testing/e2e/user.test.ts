@@ -3,8 +3,7 @@ import { app } from '../../index';
 import { disconnect } from 'mongoose';
 import { newUser } from '../mocks/userMocks';
 import User from '../../schemas/User';
-import { populateDb } from '../utils/populateDB';
-//Lo que falla en github en la conexion base de datos
+import { HTTP_STATUS } from '../../utils/constants';
 describe('User route', () => {
 	let idUser = '';
 	beforeEach(async () => {
@@ -12,7 +11,6 @@ describe('User route', () => {
 	});
 
 	beforeAll(async () => {
-		await populateDb()
 		await User.deleteMany().exec();
 	});
 
@@ -23,14 +21,21 @@ describe('User route', () => {
 
 	it('create new user', async () => {
 		const result = await request(app).post('/user').send(newUser);
-		expect(result.status).toEqual(201);
+		expect(result.status).toEqual(HTTP_STATUS.CREATED);
 		idUser = result.body?.response?._id;
 		expect(await User.findById(idUser).exec()).toBeDefined();
 	});
 
 	it('get user by id', async () => {
 		const result = await request(app).get(`/user/${idUser}`);
-		expect(result.status).toEqual(200);
+		expect(result.status).toEqual(HTTP_STATUS.OK);
 		expect(result.body.response).toBeDefined();
+	});
+
+	it('error when create user with a email registered', async () => {
+		const result = await request(app).post('/user').send(newUser);
+		expect(result.status).toEqual(HTTP_STATUS.BAD_REQUEST);
+		idUser = result.body?.response?._id;
+		expect(await User.findById(idUser).exec()).toBeDefined();
 	});
 });

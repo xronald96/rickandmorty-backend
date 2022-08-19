@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../schemas/User';
 import { ErrorResponse, SuccessResponse } from '../types/Responses';
+import { HTTP_STATUS, RESPONSE_ERROR_MESSAGE } from '../utils/constants';
 import { CreateErrorResponse, CreateSuccessResponse } from '../utils/responses';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -13,7 +14,7 @@ export const login = async ({
 	password: string;
 }): Promise<SuccessResponse | ErrorResponse> => {
 	try {
-		if (!(email && password)) return CreateErrorResponse(400, 'All input is required');
+		if (!(email && password)) return CreateErrorResponse(HTTP_STATUS.BAD_REQUEST, RESPONSE_ERROR_MESSAGE.INPUTS_REQUIRED);
 
 		const user = await User.findOne({ email }).exec();
 		if (user && (await bcrypt.compare(password, user.password))) {
@@ -22,9 +23,9 @@ export const login = async ({
 				expiresIn: '2h',
 			});
 			user.token = token;
-			return CreateSuccessResponse(200, user);
-		} else return CreateErrorResponse(400, 'Invalid Credentials');
+			return CreateSuccessResponse(HTTP_STATUS.OK, user);
+		} else return CreateErrorResponse(HTTP_STATUS.BAD_REQUEST, RESPONSE_ERROR_MESSAGE.INVALID_CREDENTIALS);
 	} catch (err) {
-		return CreateErrorResponse(500, 'Internal error', err);
+		return CreateErrorResponse(HTTP_STATUS.INTERNAL_ERROR, RESPONSE_ERROR_MESSAGE.INTERNAL_ERROR, err);
 	}
 };
