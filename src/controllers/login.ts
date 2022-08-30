@@ -5,7 +5,7 @@ import { ErrorResponse, SuccessResponse } from '../types/Responses';
 import { HTTP_STATUS, RESPONSE_ERROR_MESSAGE } from '../utils/constants';
 import { CreateErrorResponse, CreateSuccessResponse } from '../utils/responses';
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+
 export const login = async ({
 	email,
 	password,

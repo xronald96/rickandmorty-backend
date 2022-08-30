@@ -1,7 +1,5 @@
 import { ErrorResponse, SuccessResponse } from "../types/Responses";
-import { UserEntity } from "../types/UserEntity";
-
-export const CreateSuccessResponse = (status: number, response: UserEntity | null): SuccessResponse => {
+export const CreateSuccessResponse = (status: number, response: any | null): SuccessResponse => {
     return {
         status,
         response
