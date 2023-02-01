@@ -9,7 +9,6 @@ on:
 env:
   JWT_TOKEN: ${{secrets.JWT_TOKEN}}
   URI_MONGODB_PROD: ${{secrets.URI_MONGODB_PROD}}
-  URI_MONGODB_DEV: ${{secrets.URI_MONGODB_DEV}}
 
 jobs:
 
