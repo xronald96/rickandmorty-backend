@@ -1,1 +1,1 @@
-# sastremuscular-backend
+# rickandmorty-backend
