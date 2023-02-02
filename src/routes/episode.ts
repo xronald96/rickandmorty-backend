@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import { getEpisodes, getEpisode } from '../controllers/episode';
+import { FilterEpisode } from '../types/EpisodeEntity';
 const episodeRouter = Router();
 
 episodeRouter.get('/', async(req, res)=> {
-    const response = await getEpisodes(req.query.page as string)
+    const response = await getEpisodes(req.query as FilterEpisode)
     res.status(response.status).json(response)
 })
 

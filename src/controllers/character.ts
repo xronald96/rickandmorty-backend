@@ -3,9 +3,9 @@ import { RESPONSE_ERROR_MESSAGE } from '../utils/constants';
 import { CreateErrorResponse, CreateSuccessResponse } from '../utils/responses';
 
 const BASE_URL = 'https://rickandmortyapi.com/api/character';
-const getCharacters = async (page: string) => {
+const getCharacters = async (params: any) => {
 	try {
-		const uri = page ? BASE_URL + `/?page=${page}` : BASE_URL;
+		const uri = BASE_URL + new URLSearchParams(params).toString();
 		const result = await axios.get(uri).then((res) => res.data);
 		return CreateSuccessResponse(200, result);
 	} catch (err) {

@@ -3,7 +3,7 @@ import { getLocations } from '../controllers/location';
 const locationRouter = Router();
 
 locationRouter.get('/', async(req, res)=> {
-    const response = await getLocations(req.query.page as string)
+    const response = await getLocations(req.query)
     res.status(response.status).json(response)
 })
 
