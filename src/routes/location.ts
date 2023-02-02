@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getLocations } from '../controllers/location';
+import { getLocation, getLocations } from '../controllers/location';
 const locationRouter = Router();
 
 locationRouter.get('/', async(req, res)=> {
@@ -8,7 +8,7 @@ locationRouter.get('/', async(req, res)=> {
 })
 
 locationRouter.get('/:id', async(req, res)=> {
-    const response = await getLocations(req.params.id)
+    const response = await getLocation(req.params.id)
     res.status(response.status).json(response)
 })
 export default locationRouter;

@@ -5,7 +5,7 @@ import { CreateErrorResponse, CreateSuccessResponse } from '../utils/responses';
 const BASE_URL = 'https://rickandmortyapi.com/api/location';
 const getLocations = async (params: any) => {
 	try {
-		const uri = BASE_URL + new URLSearchParams(params).toString();
+		const uri = BASE_URL+ '/?' + new URLSearchParams(params).toString();
 		const result = await axios.get(uri).then((res) => res.data);
 		return CreateSuccessResponse(200, result);
 	} catch (err) {
