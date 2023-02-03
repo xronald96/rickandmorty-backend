@@ -16,7 +16,7 @@ describe('Episode route', () => {
 	});
 
 	it('invalid id', async () => {
-		const result = await request(app).get(`/episode/null`);
+		const result = await request(app).get(`/episode/2345234`);
 		expect(result.status).toEqual(HTTP_STATUS.INTERNAL_ERROR);
 	});
 });

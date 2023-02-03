@@ -1,3 +1,13 @@
+export type Status = 'alive' | 'dead' | 'unknown'
+export type Gender = 'female' | 'male' | 'genderless' | 'unknown'
+export  type FilterEpisode = {
+	page: string;
+	name: string;
+	status: Status;
+	species: string;
+	type: string;
+	gender: Gender;
+}
 export interface Info {
 	count: number;
 	pages: number;

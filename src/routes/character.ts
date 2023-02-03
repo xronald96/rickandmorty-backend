@@ -3,7 +3,7 @@ import { getCharacter, getCharacters } from '../controllers/character';
 const characterRouter = Router();
 
 characterRouter.get('/', async(req, res)=> {
-    const response = await getCharacters(req.query.page as string)
+    const response = await getCharacters(req.query)
     res.status(response.status).json(response)
 })
 
